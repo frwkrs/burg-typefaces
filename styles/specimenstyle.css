@@ -280,13 +280,9 @@ h2 {
     /* justify-content: space-between; */
   }
 
-  /* .fontname {
-    /* border-radius: 25px; */
-    /* padding: 12px; */
-    /* border: 1px solid black; */
-    /* background-color: var(--main-bg-color);
-    color: white; 
-  } */
+  .fontname {
+    padding-right: var(--pad-l);
+  }
 
   .slidecontainer {
     display: flex;

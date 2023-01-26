@@ -30,13 +30,8 @@
        <% const thisfont=data.find(thisfont => thisfont.id === font.font); %> 
         <% if (!thisfont) continue %>
         <% let foont = thisfont.id.split('-')[0] %>
-        <% console.log(foont) %>
-        // change to only save the array not the key
-        <% let familyArray = selector.filter(family => family.hasOwnProperty('BurgGrotesk')); 
-    
-        console.log(familyArray[0].BurgGrotesk);
-        
-        %>
+        <!-- change to only save the array not the key -->
+       
 
   
        
@@ -53,7 +48,33 @@
             <!-- <div class="smallfont" style="display: none;"> Use a Laptop!</div> -->
           </div>
           <div></div>
-            <div class="fontname" id="styles" style="padding-top: 15px; width: 5vw"><%-i %> Styles</div>
+            <div class="fontname" id="styles" style="padding-top: 15px; width: 5vw">
+             
+      <% let familyArray = selector.filter(family => family.hasOwnProperty(foont)); 
+      console.log(familyArray)
+        let nOfStyles = 0;
+        let style = 'Styles '
+      if (familyArray[0][foont].length > 1)
+       { console.log("what")
+        nOfStyles = familyArray[0][foont].length } 
+        else  {
+         nOfStyles = 1;
+        style = 'Style'
+       } %>
+              <%- nOfStyles %> <%- style %>
+     
+ 
+     <select id="font-style-selector">
+
+      <% familyArray[0][foont].forEach(element => {
+         let styleName=element.split("-")[1] || "Regular" ;
+         console.log("+" +styleName) %>
+          <option value="<%= styleName %>">
+            <%= styleName %>
+          </option>
+          <% }); %>
+    </select>
+              </div>
           </div>
 
         </div>
