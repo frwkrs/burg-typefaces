@@ -1,0 +1,9 @@
+@font-face {
+        font-family: 'BurgGrotesk';
+        src: url('../fonts/BurgGrotesk-Regular.otf');
+    }
+@font-face {
+            font-family: 'BurgGrotesk-Medium';
+            src: url('../font_styles/BurgGrotesk-Medium.otf');
+            font-weight: BurgGrotesk-Medium;
+        }

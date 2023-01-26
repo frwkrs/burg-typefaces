@@ -1,0 +1,9 @@
+@font-face {
+        font-family: 'Basteleur';
+        src: url('../fonts/Basteleur-Moonlight.woff2');
+    }
+@font-face {
+            font-family: 'Basteleur-Bold';
+            src: url('../font_styles/Basteleur-Bold.woff');
+            font-weight: Basteleur-Bold;
+        }

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Upload your Font</title>
+
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../styles/specimenstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../styles/upload.css" type="text/css" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  </head>
+ <% let message = ''; %>
+
+  <header><%- include('../common/header') %></header>
+ 
+  <body>
+    <a href="../library/"><button class="back-button">Back</button></a>
+    <div class="upload-wrapper">
+      <form
+        class="upload-form"
+        onsubmit="return validateForm()"
+        action="/upload"
+        enctype="multipart/form-data"
+        method="post"
+      >
+        <p class="upload-tooltips">
+          * means that a field is mandatory.
+        </p>
+        <label for="file">Add your main font file:*</label>
+        <p class="upload-tooltips">
+          If you have your font in the woff or woff2 format: Perfect! If you
+          only have it as .otf or .ttf consider just uploading a trial-font with
+          a limited characterset, because this website can't provide a sufficent
+          encryption for your font-file to keep it from being stolen
+        </p>
+        <input
+          type="file"
+          name="fontFile"
+          single
+          accept=".ttf, .otf, .woff, .woff2"
+          required
+        />
+        <div class="hr-upload"></div>
+        <label for="file">Add additional styles:*</label>
+        <p class="upload-tooltips">
+          If your font has more than one style you can add them here
+        </p>
+        <input
+          type="file"
+          name="styleFiles"
+          multiple
+          accept=".ttf, .otf, .woff, .woff2"
+        />
+        <div class="hr-upload"></div>
+        <label for="filter">Choose categories for your font:*</label>
+        <p class="upload-tooltips">
+          In order to provide some kind of filtering for the type-library it is
+          sensible to choose the right categories of your font.
+        </p>
+        <!-- <select id="filter" name="filter" required>
+          <option value="Serif">Complete Charset</option>
+          <option value="Sans-Serif">Limited Charset</option>
+          <option value="Monospace">Sketch</option>
+          <option value="Display">Sketch</option>
+          <option value="Experimental">Sketch</option>
+        </select> -->
+        <span class="categories">
+            <input type="checkbox" id="categorie1" name="categorie1" value="Serif" />
+            <label for="categorie1">Serif</label>
+        <!-- </span>
+        <span> -->
+            <input type="checkbox" id="categorie2" name="categorie2" value="Sans-Serif" />
+            <label for="categorie2">Sans Serif</label>
+        <!-- </span>
+        <span> -->
+            <input type="checkbox" id="categorie3" name="categorie3" value="Sans-Serif" />
+            <label for="categorie3">Sans Serif</label>
+        <!-- </span>
+        <span> -->
+            <input type="checkbox" id="categorie4" name="categorie4" value="Display" />
+            <label for="categorie4">Display</label>
+        <!-- </span>
+        <span> -->
+            <input type="checkbox" id="categorie5" name="categorie5" value="Monospace" />
+            <label for="categorie5">Monospace</label>
+        <!-- </span>
+        <span> -->
+            <input type="checkbox" id="categorie6" name="categorie6" value="Experimental" />
+            <label for="categorie6">Experimental</label>
+        <!-- </span>
+        <span> -->
+            <input type="checkbox" id="categorie7" name="categorie5" value="Script" />
+            <label for="categorie7">Script</label>
+        </span>
+     
+
+        <div class="hr-upload"></div>
+        <label for="fname">Your name:*</label>
+        <input
+          type="text"
+          id="fname"
+          name="fname"
+          placeholder="Firstname Lastname"
+          required
+        />
+        <div class="hr-upload"></div>
+        <label for="teachername">Teacher:</label>
+        <p class="upload-tooltips">
+          since it's a library of fonts by students of burg
+        </p>
+        <input
+          type="text"
+          id="teachername"
+          name="teachername"
+          placeholder="Prof. McGonnagall"
+        />
+        <div class="hr-upload"></div>
+        <label for="description">Describe your Font:</label>
+        <p class="upload-tooltips">
+          Feel free to add details about your process of designing the font.
+          Also, this is the space for the technical features of your font (i.e.
+          number of glyphs, open type features etc.)
+        </p>
+        <textarea
+          type="textarea"
+          rows="10"
+          cols="50"
+          id="description"
+          name="description"
+        ></textarea>
+        <div class="hr-upload"></div>
+        <label for="picturefiles">Add Pictures:</label>
+        <p class="upload-tooltips">
+          If you have your own specimen of pictures of your typeface in use you
+          can add it here.
+        </p>
+        <input
+          type="file"
+          name="pictures"
+          class="pictures"
+          id="pictures"
+          multiple
+          accept="image/*"
+        />
+        <div class="hr-upload"></div>
+        <label for="">Link to your Font:*</label>
+        <p class="upload-tooltips">
+          If your font can be bought via any website (or interested folk can
+          reach out via your instagram) you can add the link for that here.
+        </p>
+        <input
+          type="text"
+          id="social"
+          name="fontlink"
+          required
+          placeholder="https://www.link-to-your-font.com"
+        />
+        <div class="hr-upload"></div>
+        <label for="">Add a Social Network Account (e.g. Instagram):</label>
+        <input
+          type="text"
+          id="social"
+          name="social"
+          placeholder="https://www.instagram.com/username"
+        />
+        <div class="hr-upload"></div>
+        <label for=""
+          >Add another Social Network Account (if you want to):</label
+        >
+        <input
+          type="text"
+          id="otherSocial"
+          name="otherSocial"
+          placeholder="https://www.twitter.com/username"
+        />
+
+        <label for="password"
+        >Passwort:</label
+      >
+      <input
+        name="password"
+        type="password"
+      />
+        <div class="hr-upload"></div>
+        <span
+          ><input
+            type="checkbox"
+            id="termsCheckbox"
+            name="termsCheckbox"
+            value="agree"
+          /><label for="termsCheckbox">
+            I guarantee that I am the author and the rightful owner of the
+            font</label
+          ></span
+        >
+        <div id="errorMessage"></div>
+        <div class="about-text"><%- message %></div>
+        <input class="submit-button" type="submit" value="Upload" />
+      </form>
+    </div>
+  </body>
+</html>

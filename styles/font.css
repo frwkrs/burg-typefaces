@@ -1,0 +1,48 @@
+@font-face {
+  font-family: 'Archivo-Regular';
+  src: url('../fonts/Archivo-Regular.woff2') format('truetype');
+}
+@font-face {
+  font-family: 'AutreDisplay-Regular';
+  src: url('../fonts/AutreDisplay-Regular.woff2') format('truetype');
+}
+@font-face {
+  font-family: 'Barriecito-Regular';
+  src: url('../fonts/Barriecito-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'BasementGrotesque-Black';
+  src: url('../fonts/BasementGrotesque-Black.otf') format('truetype');
+}
+@font-face {
+  font-family: 'Basteleur-Moonlight';
+  src: url('../fonts/Basteleur-Moonlight.woff2') format('truetype');
+}
+@font-face {
+  font-family: 'Bifocals';
+  src: url('../fonts/Bifocals.otf') format('truetype');
+}
+@font-face {
+  font-family: 'BurgGrotesk-Regular';
+  src: url('../fonts/BurgGrotesk-Regular.otf') format('truetype');
+}
+@font-face {
+  font-family: 'DarkerGrotesque-Regular';
+  src: url('../fonts/DarkerGrotesque-Regular.woff') format('truetype');
+}
+@font-face {
+  font-family: 'Dia-Regular';
+  src: url('../fonts/Dia-Regular.otf') format('truetype');
+}
+@font-face {
+  font-family: 'Faglia-Regular';
+  src: url('../fonts/Faglia-Regular.otf') format('truetype');
+}
+@font-face {
+  font-family: 'Zara-Regular';
+  src: url('../fonts/Zara-Regular.woff') format('truetype');
+}
+@font-face {
+  font-family: 'avara';
+  src: url('../fonts/avara.woff2') format('truetype');
+}

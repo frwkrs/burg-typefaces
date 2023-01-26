@@ -1,0 +1,9 @@
+@font-face {
+        font-family: 'AutreDisplay';
+        src: url('../fonts/AutreDisplay-Regular.woff2');
+    }
+@font-face {
+            font-family: 'AutreDisplay-Italic';
+            src: url('../font_styles/AutreDisplay-Italic.woff2');
+            font-weight: AutreDisplay-Italic;
+        }

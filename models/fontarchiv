@@ -1,0 +1,42 @@
+const mongoose = require('mongoose');
+
+const fontarchivSchema = new mongoose.Schema({
+filename:{
+    type: String,
+    required: true,
+    immutable: true 
+},
+id:{
+    type: String,
+    required: true,
+    immutable: true
+},
+category:[{
+    type: String
+}],
+author:{
+    type: String,
+    required: true
+},
+fontinfo:{
+    type: String
+},
+teacher:{
+    type: String
+},
+website:{
+    type: String,
+    lowercase: true
+},
+instagram:{
+    type: String,
+    lowercase: true
+},
+otherSocial:{
+    type: String,
+    lowercase: true
+},
+
+});
+
+module.exports = mongoose.model('Fontarchiv', fontarchivSchema);

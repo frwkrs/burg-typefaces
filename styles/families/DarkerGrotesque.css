@@ -1,0 +1,34 @@
+@font-face {
+        font-family: 'DarkerGrotesque';
+        src: url('../fonts/DarkerGrotesque-Regular.woff');
+    }
+@font-face {
+            font-family: 'DarkerGrotesque-Black';
+            src: url('../font_styles/DarkerGrotesque-Black.woff');
+            font-weight: DarkerGrotesque-Black;
+        }
+@font-face {
+            font-family: 'DarkerGrotesque-Bold';
+            src: url('../font_styles/DarkerGrotesque-Bold.woff');
+            font-weight: DarkerGrotesque-Bold;
+        }
+@font-face {
+            font-family: 'DarkerGrotesque-Extrabold';
+            src: url('../font_styles/DarkerGrotesque-Extrabold.woff');
+            font-weight: DarkerGrotesque-Extrabold;
+        }
+@font-face {
+            font-family: 'DarkerGrotesque-Light';
+            src: url('../font_styles/DarkerGrotesque-Light.woff');
+            font-weight: DarkerGrotesque-Light;
+        }
+@font-face {
+            font-family: 'DarkerGrotesque-Medium';
+            src: url('../font_styles/DarkerGrotesque-Medium.woff');
+            font-weight: DarkerGrotesque-Medium;
+        }
+@font-face {
+            font-family: 'DarkerGrotesque-Semibold';
+            src: url('../font_styles/DarkerGrotesque-Semibold.woff');
+            font-weight: DarkerGrotesque-Semibold;
+        }

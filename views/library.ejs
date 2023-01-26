@@ -1,0 +1,82 @@
+<header>
+  <%- include('../common/header') %>
+</header>
+
+<!-- <div class="filter">
+  Filter:
+  <span> Complete</span><span> Sketches</span>
+</div> 
+
+<div class="wrapper"> -->
+<div class="filter-container">
+  <button onclick="filterFonts('all')">All</button>
+  <button onclick="filterFonts('Serif')">Serif</button>
+  <button onclick="filterFonts('Sans-Serif')">Sans Serif</button>
+  <button onclick="filterFonts('Slab-Serif')">Slab Serif</button>
+  <button onclick="filterFonts('Display')">Display</button>
+  <button onclick="filterFonts('Monospace')">Monospace</button>
+  <button onclick="filterFonts('Experimental')">Experimental</button>
+  <button onclick="filterFonts('Script')">Script</button>
+</div>
+<% let i=0 %>
+  <% for (const font of fonts) { %>
+
+    <% let bigfont=font.font.split('-')[0]; const regex=/([a-z])([A-Z])/g; bigfont=bigfont.replace(regex, '$1$2' ); %>
+    <!-- anpassen für neue datenstruktur.... -->
+       <% const thisfont=data.find(thisfont => thisfont.id === font.font); %> 
+        <% if (!thisfont) continue
+        console.log(thisfont) %>
+        <div class="font-wrapper" data-category="<%= thisfont.category %>">
+          <div class="fontinfo">
+            <a href="../specimen/<%- font.font %>" class="link">
+              <span class="fontname"><span id="font"><%-bigfont %> </br>by <%= thisfont.author %></span>
+            </a>
+          </div>
+
+          <div class="bigfontlibrary"style="font-family:<%- font.font %>" id="font<%- + i %>" contenteditable="true">
+            <!-- Use this page on your laptop -->
+            <div class="bigfont"id="fontsizer"> <%- bigfont %> </div>
+            <!-- <div class="smallfont" style="display: none;"> Use a Laptop!</div> -->
+          </div>
+          <div></div>
+            <div class="fontname" id="styles" style="padding-top: 15px; width: 5vw">3 Styles</div>
+          </div>
+
+        </div>
+        <hr>
+        <% i++ %>
+          <% } %>
+            </div>
+
+            <script>
+              function filterFonts(category) {
+                var fonts = document.querySelectorAll(".font-wrapper");
+                if (category === "all") {
+                  fonts.forEach(font =>{ 
+                    font.style.display = "flex";
+                    var hr = font.nextElementSibling;
+                    hr.classList.remove("show");
+
+                });
+                  
+                } else {
+                  fonts.forEach(font => {
+                    var categories = font.dataset.category.split(",");
+                    console.log("test"+categories);
+                    console.log(category)
+                    var hr = font.nextElementSibling;
+                    if (categories.includes(category)) {
+                      font.style.display = "flex";
+                      hr.classList.remove("show");
+                    } else {
+                      font.style.display = "none";
+                      hr.classList.add("show");
+                    }
+                  });
+                }
+              }
+
+            </script>
+
+
+            <script src="../scripts/script2.js" type="text/javascript"></script>
