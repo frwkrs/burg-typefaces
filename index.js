@@ -7,24 +7,9 @@ const express = require("express");
 const mongoose = require('mongoose');
 const limit = require("express-limit").limit;
 mongoose.set('strictQuery', false);
-
-
-// mongoose.connect('mongodb://font:FetterMolch3000@localhost/fontarchive', { useNewUrlParser: true});
-// const db = mongoose.connection;
-// db.once('open', () => console.log('Connected to DB'));
-// mysql 
-const mysql = require('mysql2/promise');
-
-var conn = 0;
-// const conn = mysql.createConnection({ 
-//    host: 'localhost',
-//   user: 'root',
-//   password: 'FetterMolch3000',
-//   database: 'fontarchive' });
-
-//mysql
-
-
+mongoose.connect('mongodb://font:FetterMolch3000@localhost/fontarchive', { useNewUrlParser: true});
+const db = mongoose.connection;
+db.once('open', () => console.log('Connected to DB'));
 const limiter = 10000000;
 // const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
@@ -92,44 +77,41 @@ app.get(["/","/library"],   limit({
   // Create an array of font divs
   let fonts = await createFontDivs("styles/font.css");
   let families = [];
-  fonts.forEach(font => {
-    let family = font.font.split('-')[0]
-    const stylesPath = `./styles/families/${family}.css`;
-    families.push(getFontFamilies(stylesPath));
-  });
+fonts.forEach(font => {
+  let family = font.font.split('-')[0]
+  const stylesPath = `./styles/families/${family}.css`;
+  let obj = {};
+  obj[family] = getFontFamilies(stylesPath);
+  families.push(obj);
+});
+
+
+  
+  // console.log(families);
+  // var countArr = families.map(function(subArr) {
+  //   return subArr.length;
+  // });
+  // console.log(countArr);
+  // // let fontcss = 
+  // try {
+  // const stylesPath = `./styles/families/${fontcss}.css`;
+  // const selector = getFontFamilies(stylesPath)
+  // fs.readFile(stylesPath, 'utf8', (err, data) => {
+  //   if (err) {
+  //     console.log(err);
+  //     return;
+  //   }
+
   // Find all fonts in the collection
-    // let data = [{
-    //   filename: 'DarkerGrotesque-Regular.woff',
-    //   id: 'DarkerGrotesque-Regular',
-    //   category: [ 'Sans-Serif' ],
-    //   author: 'Christian Gruber',
-    //   fontinfo: '',
-    //   teacher: 'Teacher',
-    //   website: 'https://www.google.de',
-    //   instagram: '',
-    //   otherSocial: '',
-    //   __v: 0
-    // }]
-
-    const [rows, fields] = await conn.execute('select * from typefaces');
-    // console.log(JSON.stringify(rows));
-    // await conn.end();
-    // const rows = connection.execute("SELECT * FROM typefaces");
- 
-
-    // convert to array 
-    // data = rows[0].map(row => row);
-
- 
-
+  let data = await fontarchiv.find();
+  console.log(data);
 
   // Create an empty object to store the matching data from the database
   // Loop through the fonts array
  
   // Render the library view, passing in the fonts and matching data
-  res.render("library", { fonts: fonts, data: rows, selector: families, active: 'library' });
+  res.render("library", { fonts: fonts, data: data, selector: families, active: 'library' });
 });
-
 
 
 app.get("/about", limit({
@@ -145,16 +127,7 @@ app.get("/specimen/:id", limit({
   period: 60 * 1000, // per minute (60 seconds)
 }), async (req, res) => {
   // sets font of specimen page to font that was clicked by user
-  // let font = await fontarchiv.findOne({ id: req.params.id});
-  let font;
-  // try {
-  const [rows, fields] =  await conn.execute("SELECT * FROM typefaces WHERE id = ?", [req.params.id]);
-     console.log(JSON.stringify(rows)); 
-// } catch(err) {
-//     res.render("404", {active: '', id: req.params.id});
-//     return;
-//   }
-
+  let font = await fontarchiv.findOne({ id: req.params.id});
   let fontcss = req.params.id.split('-')[0];
   try {
   const stylesPath = `./styles/families/${fontcss}.css`;
@@ -164,7 +137,6 @@ app.get("/specimen/:id", limit({
       console.log(err);
       return;
     }
-
     // let picturePaths;
   fs.readdir('./upload', (err, files) => {
       if (err) {
@@ -175,7 +147,7 @@ app.get("/specimen/:id", limit({
       let pictures = files.filter(file => file.startsWith(fontcss) && (file.endsWith('.jpg') || file.endsWith('.jpeg') || file.endsWith('.png') || file.endsWith('.JPG')));
       let picturePaths = pictures.map(picture => `../upload/${picture}`);
       // console.log(picturePaths);
-       res.render("specimen", { font: rows, active: 'specimen', css: data, selector: selector, pictures: picturePaths});
+       res.render("specimen", { font: font, active: 'specimen', css: data, selector: selector, pictures: picturePaths});
   });
 
     });
@@ -219,11 +191,7 @@ app.post("/upload", upload.fields([{name: 'fontFile', maxCount: 1}, {name: 'styl
   // if (!checkPasswords ) return;
   console.log(checkPasswords(req.body.password));
   // Check if the font already exists in the database
-
-      const [rows, fields]= connection.query("SELECT * FROM typefaces WHERE filename = ?", [req.files['fontFile'][0].originalname]);
-  console.log(JSON.stringify(rows));
-  // let existingFont = await fontarchiv.findOne({ filename: req.files['fontFile'][0].originalname });
-let existingFont = rows
+  let existingFont = await fontarchiv.findOne({ filename: req.files['fontFile'][0].originalname });
   if (existingFont) {
     // redirect again to the same site
     res.render('upload', { message: 'Font already exists' ,active: 'upload'});
@@ -255,15 +223,23 @@ let existingFont = rows
     }
   }
 
-
-
-await conn.execute("INSERT INTO fonts (filename, id, category, author, fontinfo, teacher, website, instagram, otherSocial) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", 
-    [req.files['fontFile'][0].originalname, id, selectedCategories, req.body.fname, req.body.description, req.body.teachername, req.body.fontlink, req.body.social, req.body.otherSocial]);
-   console.log(JSON.stringify(rows)); 
   try {
     let data = req.body;
     // use the path.parse() function to remove the file extension from the original name
-    
+    const {name: id} = path.parse(req.files['fontFile'][0].originalname);
+    const font = new fontarchiv({
+      filename: req.files['fontFile'][0].originalname,
+      id: id,
+      category: selectedCategories,
+      author: req.body.fname,
+      fontinfo: req.body.description,
+      teacher: req.body.teachername,
+      website: req.body.fontlink,
+      instagram: req.body.social,
+      otherSocial: req.body.otherSocial
+  
+    });
+    await font.save();
   } catch (error) {
     console.log(error);
     res.render('upload', { message: 'Error while saving font. Please try again' });
@@ -282,15 +258,7 @@ await conn.execute("INSERT INTO fonts (filename, id, category, author, fontinfo,
 });
 
 
-app.listen(3000, async (err) => {
-  conn = await mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'FetterMolch3000',
-    // password: 'process.env.MYSQL_PASSWORD
-    database: 'fontarchive'
-  });
-  console.log("connected to DB")
+app.listen(3000, (err) => {
   if (err) {
     console.log("error", err);
     return;
@@ -417,7 +385,7 @@ async function createFontDivs(cssFile) {
     [fontFamilies[i], fontFamilies[j]] = [fontFamilies[j], fontFamilies[i]];
   }
 
-
+  
   // For each font-family, create a div element with that font-family as the style
   let i = 1;
   const divs = [];

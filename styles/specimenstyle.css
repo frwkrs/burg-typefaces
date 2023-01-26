@@ -13,6 +13,9 @@
   padding-bottom: 5px;
 }
 
+path {
+  fill: white !important;
+}
 
 @font-face {
   font-family: 'Graebenbach-Regular';

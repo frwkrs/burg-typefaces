@@ -19,13 +19,27 @@
   <button onclick="filterFonts('Script')">Script</button>
 </div>
 <% let i=0 %>
-  <% for (const font of fonts) { %>
-
+  <% for (const font of fonts) { 
+    // console.log(selector)
+ 
+    %>
+  
     <% let bigfont=font.font.split('-')[0]; const regex=/([a-z])([A-Z])/g; bigfont=bigfont.replace(regex, '$1$2' ); %>
-    <!-- anpassen für neue datenstruktur.... -->
+ 
+
        <% const thisfont=data.find(thisfont => thisfont.id === font.font); %> 
-        <% if (!thisfont) continue
-        console.log(thisfont) %>
+        <% if (!thisfont) continue %>
+        <% let foont = thisfont.id.split('-')[0] %>
+        <% console.log(foont) %>
+        // change to only save the array not the key
+        <% let familyArray = selector.filter(family => family.hasOwnProperty('BurgGrotesk')); 
+    
+        console.log(familyArray[0].BurgGrotesk);
+        
+        %>
+
+  
+       
         <div class="font-wrapper" data-category="<%= thisfont.category %>">
           <div class="fontinfo">
             <a href="../specimen/<%- font.font %>" class="link">
@@ -39,7 +53,7 @@
             <!-- <div class="smallfont" style="display: none;"> Use a Laptop!</div> -->
           </div>
           <div></div>
-            <div class="fontname" id="styles" style="padding-top: 15px; width: 5vw">3 Styles</div>
+            <div class="fontname" id="styles" style="padding-top: 15px; width: 5vw"><%-i %> Styles</div>
           </div>
 
         </div>
