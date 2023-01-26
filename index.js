@@ -257,8 +257,7 @@ let existingFont = rows
 
 
 
-console.log("hier");
-await conn.query("INSERT INTO fonts (filename, id, category, author, fontinfo, teacher, website, instagram, otherSocial) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", 
+await conn.execute("INSERT INTO fonts (filename, id, category, author, fontinfo, teacher, website, instagram, otherSocial) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", 
     [req.files['fontFile'][0].originalname, id, selectedCategories, req.body.fname, req.body.description, req.body.teachername, req.body.fontlink, req.body.social, req.body.otherSocial]);
    console.log(JSON.stringify(rows)); 
   try {
@@ -288,6 +287,7 @@ app.listen(3000, async (err) => {
     host: 'localhost',
     user: 'root',
     password: 'FetterMolch3000',
+    // password: 'process.env.MYSQL_PASSWORD
     database: 'fontarchive'
   });
   console.log("connected to DB")
