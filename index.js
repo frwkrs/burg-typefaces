@@ -7,9 +7,24 @@ const express = require("express");
 const mongoose = require('mongoose');
 const limit = require("express-limit").limit;
 mongoose.set('strictQuery', false);
-mongoose.connect('mongodb://font:FetterMolch3000@localhost/fontarchive', { useNewUrlParser: true});
-const db = mongoose.connection;
-db.once('open', () => console.log('Connected to DB'));
+
+
+// mongoose.connect('mongodb://font:FetterMolch3000@localhost/fontarchive', { useNewUrlParser: true});
+// const db = mongoose.connection;
+// db.once('open', () => console.log('Connected to DB'));
+// mysql 
+const mysql = require('mysql2/promise');
+
+var conn = 0;
+// const conn = mysql.createConnection({ 
+//    host: 'localhost',
+//   user: 'root',
+//   password: 'FetterMolch3000',
+//   database: 'fontarchive' });
+
+//mysql
+
+
 const limiter = 10000000;
 // const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
@@ -68,6 +83,7 @@ app.use(express.json());
 //handling requests
 
 
+
 app.get(["/","/library"],   limit({
   max: limiter, // 5 requests
   period: 60 * 1000, // per minute (60 seconds)
@@ -76,6 +92,12 @@ app.get(["/","/library"],   limit({
   addFontFaces("./fonts", "./styles/font.css");
   // Create an array of font divs
   let fonts = await createFontDivs("styles/font.css");
+  // let families = [];
+  // fonts.forEach(font => {
+  //   let family = font.font.split('-')[0]
+  //   const stylesPath = `./styles/families/${family}.css`;
+  //   families.push(getFontFamilies(stylesPath));
+  // });
   let families = [];
 fonts.forEach(font => {
   let family = font.font.split('-')[0]
@@ -84,35 +106,41 @@ fonts.forEach(font => {
   obj[family] = getFontFamilies(stylesPath);
   families.push(obj);
 });
-
-
-  
-
-  // console.log(families);
-  // var countArr = families.map(function(subArr) {
-  //   return subArr.length;
-  // });
-  // console.log(countArr);
-  // // let fontcss = 
-  // try {
-  // const stylesPath = `./styles/families/${fontcss}.css`;
-  // const selector = getFontFamilies(stylesPath)
-  // fs.readFile(stylesPath, 'utf8', (err, data) => {
-  //   if (err) {
-  //     console.log(err);
-  //     return;
-  //   }
-
+// console.log(families);
   // Find all fonts in the collection
-  let data = await fontarchiv.find();
-  console.log(data);
+    // let data = [{
+    //   filename: 'DarkerGrotesque-Regular.woff',
+    //   id: 'DarkerGrotesque-Regular',
+    //   category: [ 'Sans-Serif' ],
+    //   author: 'Christian Gruber',
+    //   fontinfo: '',
+    //   teacher: 'Teacher',
+    //   website: 'https://www.google.de',
+    //   instagram: '',
+    //   otherSocial: '',
+    //   __v: 0
+    // }]
+
+    const [rows, columns]= await conn.execute('select * from typefaces');
+    console.log(JSON.stringify(rows));
+    console.log('test')
+    // await conn.end();
+    // const rows = connection.execute("SELECT * FROM typefaces");
+ 
+
+    // convert to array 
+    // data = rows[0].map(row => row);
+
+ 
+
 
   // Create an empty object to store the matching data from the database
   // Loop through the fonts array
  
   // Render the library view, passing in the fonts and matching data
-  res.render("library", { fonts: fonts, data: data, selector: families, active: 'library' });
+  res.render("library", { fonts: fonts, data: rows, selector: families, active: 'library' });
 });
+
 
 
 app.get("/about", limit({
@@ -122,13 +150,30 @@ app.get("/about", limit({
   res.render("about", {active: 'about'});
 });
 
+app.get("/success", limit({
+  max: limiter, // 5 requests
+  period: 60 * 1000, // per minute (60 seconds)
+}), (req, res) => {
+  res.render("sucess", {active: ''});
+});
+
 //handle specimen requests
 app.get("/specimen/:id", limit({
   max: limiter, // 5 requests
   period: 60 * 1000, // per minute (60 seconds)
 }), async (req, res) => {
   // sets font of specimen page to font that was clicked by user
-  let font = await fontarchiv.findOne({ id: req.params.id});
+  // let font = await fontarchiv.findOne({ id: req.params.id});
+  let font;
+  // try {
+  const [rows] =  await conn.execute("SELECT * FROM typefaces WHERE id = ?", [req.params.id]);
+  console.log(rows);
+    //  console.log(JSON.stringify(rows)); 
+// } catch(err) {
+//     res.render("404", {active: '', id: req.params.id});
+//     return;
+//   }
+
   let fontcss = req.params.id.split('-')[0];
   try {
   const stylesPath = `./styles/families/${fontcss}.css`;
@@ -138,6 +183,7 @@ app.get("/specimen/:id", limit({
       console.log(err);
       return;
     }
+
     // let picturePaths;
   fs.readdir('./upload', (err, files) => {
       if (err) {
@@ -148,7 +194,7 @@ app.get("/specimen/:id", limit({
       let pictures = files.filter(file => file.startsWith(fontcss) && (file.endsWith('.jpg') || file.endsWith('.jpeg') || file.endsWith('.png') || file.endsWith('.JPG')));
       let picturePaths = pictures.map(picture => `../upload/${picture}`);
       // console.log(picturePaths);
-       res.render("specimen", { font: font, active: 'specimen', css: data, selector: selector, pictures: picturePaths});
+       res.render("specimen", { font: rows, active: 'specimen', css: data, selector: selector, pictures: picturePaths});
   });
 
     });
@@ -188,21 +234,28 @@ app.post("/upload", upload.fields([{name: 'fontFile', maxCount: 1}, {name: 'styl
   max: 5, // 5 requests
   period: 60 * 1000, // per minute (60 seconds)
 }), async (req, res) => {
-
+  console.log("upload started");
   // if (!checkPasswords ) return;
-  console.log(checkPasswords(req.body.password));
+  // console.log(checkPasswords(req.body.password));
   // Check if the font already exists in the database
-  let existingFont = await fontarchiv.findOne({ filename: req.files['fontFile'][0].originalname });
-  if (existingFont) {
-    // redirect again to the same site
-    res.render('upload', { message: 'Font already exists' ,active: 'upload'});
-    return;
-    // todo: only be able to upload with password
-  }
+
+//       const rows= await conn.query("SELECT * FROM typefaces WHERE filename = ?", [req.files['fontFile'][0].originalname]);
+
+//   // let existingFont = await fontarchiv.findOne({ filename: req.files['fontFile'][0].originalname });
+// let existingFont = rows
+// console.log(existingFont)
+//   if (existingFont) { 
+//          console.log("checked if file is already there");
+//     // redirect again to the same site
+//     res.render('upload', { message: 'Font already exists' ,active: 'upload'});
+//     return;
+//     // todo: only be able to upload with password
+//   }
 
   const allowedFileTypes = ['ttf', 'otf', 'woff', 'woff2'];
   const fontFileType = req.files['fontFile'][0].originalname.split('.').pop();
   if (!allowedFileTypes.includes(fontFileType)) {
+    console.log("fontfail");
     res.render('upload', { message: 'Invalid font file type. Allowed file types: ttf, otf, woff, woff2', active: 'upload' });
     return;
   }
@@ -212,11 +265,13 @@ app.post("/upload", upload.fields([{name: 'fontFile', maxCount: 1}, {name: 'styl
   for (let i = 0; i < req.files['pictures'].length; i++) {
     const pictureFileType = req.files['pictures'][i].originalname.split('.').pop();
     if (!allowedPictureFileTypes.includes(pictureFileType)) {
+      console.log("picture fail")
       res.render('upload', { message: 'Invalid picture file type. Allowed file types: jpg, jpeg, png' , active: 'upload'});
       return;
     }
   }
 }
+  console.log("wtf")
   // console.log(req.files)  
   let selectedCategories = [];
   const checkboxes = ["categorie1", "categorie2", "categorie3", "categorie4", "categorie5", "categorie6", "categorie7"];
@@ -225,43 +280,44 @@ app.post("/upload", upload.fields([{name: 'fontFile', maxCount: 1}, {name: 'styl
       selectedCategories.push(req.body[checkboxes[i]]);
     }
   }
-let data = req.body;
-  try {
+
+
+console.log("uploading");
+id = req.files['fontFile'][0].originalname.split(".")[0];
+await conn.execute("INSERT INTO typefaces (filename, id, category, author, fontinfo, teacher, website, instagram) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", 
+    [req.files['fontFile'][0].originalname, id, selectedCategories, req.body.fname, req.body.description, req.body.teachername, req.body.fontlink, req.body.social,]);
+  // try {
+  //   let data = req.body;
+  //   // use the path.parse() function to remove the file extension from the original name
     
-    // use the path.parse() function to remove the file extension from the original name
-    const {name: id} = path.parse(req.files['fontFile'][0].originalname);
-    const font = new fontarchiv({
-      filename: req.files['fontFile'][0].originalname,
-      id: id,
-      category: selectedCategories,
-      author: req.body.fname,
-      fontinfo: req.body.description,
-      teacher: req.body.teachername,
-      website: req.body.fontlink,
-      instagram: req.body.social,
-      otherSocial: req.body.otherSocial
-  
-    });
-    await font.save();
-  } catch (error) {
-    console.log(error);
-    res.render('upload', { message: 'Error while saving font. Please try again' });
-    return;
-  }
+  // } catch (error) {
+  //   console.log(error);
+  //   res.render('upload', { message: 'Error while saving font. Please try again' });
+  //   return;
+  // }
 
   addFontFaces("./fonts", "./styles/font.css");
   // Create an array of font divs
   let fonts = await createFontDivs("styles/font.css");
   // Find all fonts in the collection
-  data = await fontarchiv.find();
+  // data = await fontarchiv.find();
   pictureCount = 0;
+  let data = 0;
   // Render the library view, passing in the fonts and data
   res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
-  res.render("library", { fonts: fonts, data: data, active: 'library' });
+  res.render("success", { fonts: fonts, data: data, active: 'about' });
 });
 
 
-app.listen(3000, (err) => {
+app.listen(3000, async (err) => {
+  conn = await mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'FetterMolch3000',
+    // password: 'process.env.MYSQL_PASSWORD
+    database: 'fontarchive'
+  });
+  console.log("connected to DB")
   if (err) {
     console.log("error", err);
     return;
@@ -388,7 +444,7 @@ async function createFontDivs(cssFile) {
     [fontFamilies[i], fontFamilies[j]] = [fontFamilies[j], fontFamilies[i]];
   }
 
-  
+
   // For each font-family, create a div element with that font-family as the style
   let i = 1;
   const divs = [];

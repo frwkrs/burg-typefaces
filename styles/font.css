@@ -3,6 +3,10 @@
   src: url('../fonts/AutreDisplay-Regular.woff2') format('truetype');
 }
 @font-face {
+  font-family: 'Basteleur-Bold';
+  src: url('../fonts/Basteleur-Bold.woff') format('truetype');
+}
+@font-face {
   font-family: 'Basteleur-Moonlight';
   src: url('../fonts/Basteleur-Moonlight.woff2') format('truetype');
 }

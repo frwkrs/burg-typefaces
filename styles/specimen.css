@@ -161,7 +161,7 @@ img {
 
   .p-about-text {
     white-space: pre-wrap;
-    column-count: 2;
+    /* column-count: 2; */
     /* width: 50vw; */
     font-family: var(--font);
   }
