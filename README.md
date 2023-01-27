@@ -24,6 +24,7 @@ After=mysql.service
 
 [Service]
 Environment=MYSQL_PASSWORD=FetterMolch3000
+Environment=MYSQL_URL=<URLHIER>
 ExecStart=/usr/bin/node /path/to/index.js
 Restart=always
 StandardOutput=syslog

@@ -87,6 +87,7 @@ fonts.forEach(font => {
 
 
   
+
   // console.log(families);
   // var countArr = families.map(function(subArr) {
   //   return subArr.length;
@@ -207,6 +208,7 @@ app.post("/upload", upload.fields([{name: 'fontFile', maxCount: 1}, {name: 'styl
   }
 
   const allowedPictureFileTypes = ['jpg', 'jpeg', 'png'];
+  if (req.files['pictures']) {
   for (let i = 0; i < req.files['pictures'].length; i++) {
     const pictureFileType = req.files['pictures'][i].originalname.split('.').pop();
     if (!allowedPictureFileTypes.includes(pictureFileType)) {
@@ -214,6 +216,7 @@ app.post("/upload", upload.fields([{name: 'fontFile', maxCount: 1}, {name: 'styl
       return;
     }
   }
+}
   // console.log(req.files)  
   let selectedCategories = [];
   const checkboxes = ["categorie1", "categorie2", "categorie3", "categorie4", "categorie5", "categorie6", "categorie7"];
@@ -222,9 +225,9 @@ app.post("/upload", upload.fields([{name: 'fontFile', maxCount: 1}, {name: 'styl
       selectedCategories.push(req.body[checkboxes[i]]);
     }
   }
-
+let data = req.body;
   try {
-    let data = req.body;
+    
     // use the path.parse() function to remove the file extension from the original name
     const {name: id} = path.parse(req.files['fontFile'][0].originalname);
     const font = new fontarchiv({

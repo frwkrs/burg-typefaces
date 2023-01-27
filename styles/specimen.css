@@ -270,8 +270,9 @@ img {
   .abouttext {
     min-width: 0;
     font-size: 1.5rem;
-    width: 40vw;
-    word-break: break-word;
+    width: 46vw;
+    /* word-break: break-word; */
+    hyphens:auto;
   }
 
   .specimen-img {

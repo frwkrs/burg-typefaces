@@ -157,8 +157,8 @@ app.get("/specimen/:id", limit({
   // let font = await fontarchiv.findOne({ id: req.params.id});
   let font;
   // try {
-  const [rows, fields] =  await conn.execute("SELECT * FROM typefaces WHERE id = ?", [req.params.id]);
-     console.log(JSON.stringify(rows)); 
+  const rows =  await conn.execute("SELECT * FROM typefaces WHERE id = ?", [req.params.id]);
+    //  console.log(JSON.stringify(rows)); 
 // } catch(err) {
 //     res.render("404", {active: '', id: req.params.id});
 //     return;
@@ -224,37 +224,44 @@ app.post("/upload", upload.fields([{name: 'fontFile', maxCount: 1}, {name: 'styl
   max: 5, // 5 requests
   period: 60 * 1000, // per minute (60 seconds)
 }), async (req, res) => {
-
+  console.log("upload started");
   // if (!checkPasswords ) return;
-  console.log(checkPasswords(req.body.password));
+  // console.log(checkPasswords(req.body.password));
   // Check if the font already exists in the database
 
-      const [rows, fields]= connection.query("SELECT * FROM typefaces WHERE filename = ?", [req.files['fontFile'][0].originalname]);
-  console.log(JSON.stringify(rows));
-  // let existingFont = await fontarchiv.findOne({ filename: req.files['fontFile'][0].originalname });
-let existingFont = rows
-  if (existingFont) {
-    // redirect again to the same site
-    res.render('upload', { message: 'Font already exists' ,active: 'upload'});
-    return;
-    // todo: only be able to upload with password
-  }
+//       const rows= await conn.query("SELECT * FROM typefaces WHERE filename = ?", [req.files['fontFile'][0].originalname]);
+
+//   // let existingFont = await fontarchiv.findOne({ filename: req.files['fontFile'][0].originalname });
+// let existingFont = rows
+// console.log(existingFont)
+//   if (existingFont) { 
+//          console.log("checked if file is already there");
+//     // redirect again to the same site
+//     res.render('upload', { message: 'Font already exists' ,active: 'upload'});
+//     return;
+//     // todo: only be able to upload with password
+//   }
 
   const allowedFileTypes = ['ttf', 'otf', 'woff', 'woff2'];
   const fontFileType = req.files['fontFile'][0].originalname.split('.').pop();
   if (!allowedFileTypes.includes(fontFileType)) {
+    console.log("fontfail");
     res.render('upload', { message: 'Invalid font file type. Allowed file types: ttf, otf, woff, woff2', active: 'upload' });
     return;
   }
 
   const allowedPictureFileTypes = ['jpg', 'jpeg', 'png'];
+  if (req.files['pictures']) {
   for (let i = 0; i < req.files['pictures'].length; i++) {
     const pictureFileType = req.files['pictures'][i].originalname.split('.').pop();
     if (!allowedPictureFileTypes.includes(pictureFileType)) {
+      console.log("picture fail")
       res.render('upload', { message: 'Invalid picture file type. Allowed file types: jpg, jpeg, png' , active: 'upload'});
       return;
     }
   }
+}
+  console.log("wtf")
   // console.log(req.files)  
   let selectedCategories = [];
   const checkboxes = ["categorie1", "categorie2", "categorie3", "categorie4", "categorie5", "categorie6", "categorie7"];
@@ -265,10 +272,9 @@ let existingFont = rows
   }
 
 
-
-await conn.execute("INSERT INTO fonts (filename, id, category, author, fontinfo, teacher, website, instagram, otherSocial) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", 
-    [req.files['fontFile'][0].originalname, id, selectedCategories, req.body.fname, req.body.description, req.body.teachername, req.body.fontlink, req.body.social, req.body.otherSocial]);
-   console.log(JSON.stringify(rows)); 
+console.log("uploading");
+await conn.execute("INSERT INTO typefaces (filename, id, category, author, fontinfo, teacher, website, instagram) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", 
+    [req.files['fontFile'][0].originalname, id, selectedCategories, req.body.fname, req.body.description, req.body.teachername, req.body.fontlink, req.body.social,]);
   try {
     let data = req.body;
     // use the path.parse() function to remove the file extension from the original name
