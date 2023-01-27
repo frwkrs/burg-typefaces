@@ -121,7 +121,7 @@ fonts.forEach(font => {
     //   __v: 0
     // }]
 
-    const [rows, columns]= await conn.execute('select * from typefaces');
+    const [rows]= await conn.execute('select * from typefaces');
     console.log(JSON.stringify(rows));
     console.log('test')
     // await conn.end();
