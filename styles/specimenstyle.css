@@ -8,6 +8,15 @@
 
 }
 
+select {
+  border: none;
+  font-family: var(--font);
+  font-size: 1rem;
+  background-color: transparent ;
+  color: var(--main-bg-color);
+}
+
+
 .font-wrapper {
   display: flex;
   padding-top: 5px;

@@ -62,13 +62,12 @@
     <a target="_blank" class="social-link" href="<%- font[0].website %>">Website</a>
   </div>
   
-  <div class="charset"style="max-width:95vw;font-family:<%-font[0].id %>">
+  <div class="charset"style=font-family:<%-font[0].id %>">
     <div class="specimen-headline" style="font-size:1.5rem; font-family: Graebenbach-Regular">Characterset</div>
-    <br>
-    ABCDEFGHIJKMNOPQRSTUVWXYZ<br>
-    abcdefghijklmnopqrstuvwxyz<br>
-    0123456789<br>
-    .,:;…!¡?¿·•*/\-–—_‚„“”‘’«»‹›"'(){}[]
+    <div class="chars">ABCDEFGHIJKMNOPQRSTUVWXYZ
+    abcdefghijklmnopqrstuvwxyz
+    0123456789
+    .,:;…!¡?¿·•*/\-–—_‚„“”‘’«»‹›"'(){}[]</div>
   
   
   </div>
@@ -140,11 +139,19 @@
 </div>
 <!-- <img class="pictures specimen-img" src="../upload/AutreDisplay-1.jpg">
   <img class="specimen-img" src="../upload/AutreDisplay-2.jpg"> -->
-<div class="repro">
-  <% pictures.forEach(function(url){ %>
-    <img class="specimen-img" src="<%= url %>"alt="">
-    <% }); %>
-</div>
+  <% if (pictures.length > 0) { %>
+    <div class="abouttext">
+      <div class="info"><span class="specimen-headline">Type in Use</span></div>
+    
+    </div>
+    <!-- <img class="pictures specimen-img" src="../upload/AutreDisplay-1.jpg">
+      <img class="specimen-img" src="../upload/AutreDisplay-2.jpg"> -->
+    <div class="repro">
+      <% pictures.forEach(function(url){ %>
+        <img class="specimen-img" src="<%= url %>"alt="">
+        <% }); %>
+    </div>
+    <% } %>
 
 <!-- <div class="charset"> -->
 <!-- <div class="hr-specimen">Character Set</div>
