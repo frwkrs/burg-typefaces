@@ -1,3 +1,4 @@
+<html lang="en-GB">
 <head>
 
   <meta charset="utf-8">
@@ -43,8 +44,8 @@
     <div class="reset" id="reset">Reset ↺</div>
   </div>
 
-  <div class="bigfontcolumn" style="font-family:<%- font.id %>" id="font1" contenteditable="true">
-    Jack, love my big wad of sphinx quartz!
+  <div class="bigfontcolumn"style="font-family:<%- font.id %>" id="font1" contenteditable="true">
+    Burg Giebichenstein in Halle celebrates art, design, and jazz.
   </div>
   </br>
 
@@ -80,43 +81,30 @@
   <div class="hr-specimen"></div>
   <div class="twocolumns size2">
     <div class="typesize">61pt</div>
-    Five wine experts jokingly quizzed sample chablis.
+    Typography transforms letters into an exquisite art form.
   </div>
   <div class="hr-specimen"></div>
   <div class="size1">
     <div class="typesize">40.5pt</div>
-    When we go back to Juarez, Mexico, do we fly over picturesque Arizona?
-    Questions of a zealous nature have become by degrees petty waxen jokes.
+    As we revisit the world of typography at the Burg, do our perspectives shift and capture the picturesque beauty of typefaces?
   </div>
   <div class="size1 size1-right">
     <div class="typesize">27pt</div>
-    When we go back to Juarez, Mexico, do we fly over picturesque Arizona?
-    Questions of a zealous nature have become by degrees petty waxen jokes.
-    About sixty codfish eggs will make a quarter pound of very fizzy jelly.
-    Murky haze enveloped a city as jarring quakes broke fourty-six windows.
+    On our return to Halle, will we soar over picturesque Unterburg?
+    Queries of great enthusiasm transform into trivial waxy jokes.
+    Nearly sixty artworks will craft a quarter pound of vibrant exhibitions at the University of Arts and Design.
+    A misty haze engulfed the design school as jarring vibrations shattered windows in the building.
   </div>
   <div class="hr-specimen"></div>
   <div class="small-size">
     <div class="typesize">18pt</div>
-    <div class="two-columns">Casein plastics were introduced at the beginning of the 20th century, their starting
-      material being the protein in cows milk, precipitated by the action of the enzyme rennin. Although casein is
-      readily moulded to shape under moderate heat and pressure, it does not produce a stable material for manufacture
-      until it has become hardened by soaking in formalin (5% solution of formaldehyde in water) for a long period.
+    <div class="two-columns">Typographers are like scientists, but instead of beakers and Bunsen burners, they have a bunch of letters and a strong desire to make them look pretty. Or, at least, that's what they'd like you to believe. In reality, typography is just a bunch of people messing around with letters and pretending they know what they're doing. But hey, it looks good on the page, so who are we to argue?
     </div>
 
   </div>
   <div class="min-size">
     <div class="typesize">12pt</div>
-    <div class="two-columns">Casein plastics were introduced at the beginning of the 20th century, their starting
-      material being the protein in cows milk, precipitated by the action of the enzyme rennin. Although casein is
-      readily moulded to shape under moderate heat and pressure, it does not produce a stable material for manufacture
-      until it has become hardened by soaking in formalin (5% solution of formaldehyde in water) for a long period.
-      Unfortunately, this causes much distortion so casein plastics are almost always produced by machining stock
-      material such as sheet, rod, tube or buttton blanks (small discs). After machining, casein may be polished either
-      mechanically with abrasives or chemically with a ‘dip polish’. The material readily takes a surface dye, so
-      coloured items can be quickly made from pale coloured stock items. This was especially important for the button
-      trade which was the principal consumer of casein plastics. As well as buttons and buckles, casein was also used
-      for knitting pins, fountain pen and propelling pencil barrels.</div>
+    <div class="two-columns">Have you ever stopped to consider the sheer genius behind the way our letters are arranged on a page? No, us neither. But, as it turns out, there is an entire field dedicated to the study of such things – it's called typography. Typographers are like scientists, but instead of beakers and Bunsen burners, they have a bunch of letters and a strong desire to make them look pretty. They use the laws of physics, the mysteries of psychology, and a dash of pure magic to arrange letters in just the right way to create a visual feast for the reader's eyes. Or, at least, that's what they'd like you to believe. In reality, typography is just a bunch of people messing around with letters and pretending they know what they're doing. But hey, it looks good on the page, so who are we to argue? So, next time you're reading a book or scrolling through your favorite website, spare a thought for the typographers who put in the hard work to make sure your reading experience is as aesthetically pleasing as possible. Or don't. It's your call."</div>
   </div>
     <!-- <div class="hr-specimen"></div> -->
 
@@ -131,15 +119,11 @@
 </div> -->
 
 
-<div class="hr-specimen"></div>
-<p></p>
-<div class="abouttext">
-  <div class="info"><span class="specimen-headline">Type in Use</span></div>
 
-</div>
 <!-- <img class="pictures specimen-img" src="../upload/AutreDisplay-1.jpg">
   <img class="specimen-img" src="../upload/AutreDisplay-2.jpg"> -->
   <% if (pictures.length > 0) { %>
+    <div class="hr-specimen"></div>
     <div class="abouttext">
       <div class="info"><span class="specimen-headline">Type in Use</span></div>
     
@@ -157,8 +141,9 @@
 <!-- <div class="hr-specimen">Character Set</div>
   <div class="charset-line"> -->
 <div class="hr-specimen"></div>
-<p class="p-one-column">This Font is by <%-font[0].author %>. All rights reserved</p>
 
+<p class="p-one-column">This Font is by <%-font[0].author %>. All rights reserved</p>
+<br><br>
 </div>
 <br>
 <!-- </div> -->
@@ -170,4 +155,8 @@
   let fontid = "<%- font[0].filename %>";
 
   getCharacterSet(fontid);
+
+
 </script>
+
+</html>

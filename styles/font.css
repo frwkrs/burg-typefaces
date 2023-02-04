@@ -3,16 +3,12 @@
   src: url('../fonts/AutreDisplay-Regular.woff2') format('truetype');
 }
 @font-face {
-  font-family: 'Basteleur-Bold';
-  src: url('../fonts/Basteleur-Bold.woff') format('truetype');
-}
-@font-face {
-  font-family: 'Basteleur-Moonlight';
-  src: url('../fonts/Basteleur-Moonlight.woff2') format('truetype');
-}
-@font-face {
   font-family: 'BurgGrotesk-Regular';
   src: url('../fonts/BurgGrotesk-Regular.otf') format('truetype');
+}
+@font-face {
+  font-family: 'VelosMono';
+  src: url('../fonts/VelosMono.woff2') format('truetype');
 }
 @font-face {
   font-family: 'softy-Regular';

@@ -268,7 +268,7 @@ h2 {
   .bigfontlibrary {
     hyphens: auto;
     display: flex;
-    word-break: normal;
+    word-break: break-word;
     max-width: 85vw;
     width: 85vw;
     /* margin: auto; */
