@@ -26,7 +26,8 @@ var conn = 0;
 const limiter = 10000000;
 // const { body, validationResult } = require('express-validator');
 const bcrypt = require("bcrypt");
-const hash = "$2a$12$SEWyvSTjXibeAtzX2wrbve0m.m40qO8dY.sxn6SruaV5nYLffJD4S";
+// const hash = "$2a$12$SEWyvSTjXibeAtzX2wrbve0m.m40qO8dY.sxn6SruaV5nYLffJD4S";
+const hash = "$2a$12$6fnIGtO9Zt0wMu57eXMeGOHbrsUeTE8boxo8E/jBnwE1knXs6xo8C";
 
 // file handling for database
 const fs = require("fs");
@@ -244,7 +245,7 @@ app.post(
   }),
   async (req, res) => {
     console.log("upload started");
-    // if (!checkPasswords ) return;
+    if (!checkPasswords ) return;
     // console.log(checkPasswords(req.body.password));
     // Check if the font already exists in the database
 
@@ -290,7 +291,6 @@ app.post(
         }
       }
     }
-    console.log("wtf");
     // console.log(req.files)
     let selectedCategories = [];
     const checkboxes = [
@@ -307,6 +307,9 @@ app.post(
         selectedCategories.push(req.body[checkboxes[i]]);
       }
     }
+
+
+
 
     console.log("uploading");
     id = req.files["fontFile"][0].originalname.split(".")[0];
