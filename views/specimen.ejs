@@ -4,6 +4,8 @@
   <meta charset="utf-8">
   <link rel="stylesheet" href="../styles/specimenstyle.css">
   <link rel="stylesheet" href="../styles/specimen.css">
+    <link rel="shortcut icon" href="../database/favicon.png">
+  
   <style>
     <%- css %>
   </style>
@@ -21,7 +23,10 @@
 <!-- <div class="sticky-info">br>
   </div> -->
 
+  <% let bigfont=font[0].id.split('-')[0]; const regex=/([a-z])([A-Z])/g; bigfont=bigfont.replace(regex, '$1 $2' ); %>
 <a href="../library/"><button class="back-button">Back</button></a>
+<button class="typeface-info"><%- bigfont %></button>
+
 <div class="specimenwrapper" style="font-family:<%- font[0].id %>">
   <div class="slidercontainer">
     <label for="font-style-selector">Styles: </label>
@@ -55,9 +60,11 @@
     <% console.log(font) 
     console.log("hier") %>
 
-    <div class="info"><span class="specimen-headline"><%- font[0].id %> by <%- font[0].author %></span></div>
+    <div class="info"><span class="specimen-headline"><%- bigfont %> by <%- font[0].author %></span></div>
     <p class="p-about-text"><%- font[0].fontinfo %></p>
-    <p class="p-about-text"><%- font[0].teachername %></p>
+    <% if (font[0].teacher) { %>
+    <p class="p-about-text">This Font was designed with supervision by <%- font[0].teacher %></p>
+    <% } %>
     <p class="p-about-text">Categories: <%- font[0].category %></p>
     <a target="_blank" class="social-link" href="<%- font[0].instagram %>">Instagram</a>
     <a target="_blank" class="social-link" href="<%- font[0].website %>">Website</a>
@@ -76,7 +83,7 @@
 
   <div class="twocolumns size3">
     <div class="typesize">136 pt</div>
-    <div>Pack my box with five dozen liquor jugs.</div>
+    <div>Stuck at Burg Halle's type class? Revamp with unique fonts, bring some flair.</div>
   </div>
   <div class="hr-specimen"></div>
   <div class="twocolumns size2">

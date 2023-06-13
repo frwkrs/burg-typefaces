@@ -150,26 +150,40 @@ function getCharacterSet(font) {
   });
 }
 
-function validateForm() {
-  var checkBox = document.getElementById("termsCheckbox");
-  var errorMessage = document.getElementById("errorMessage");
-  if (!checkBox.checked) {
-    errorMessage.textContent =
-      "You must agree to the terms and conditions before submitting the form.";
-    return false;
+// function validateForm() {
+//   var checkBox = document.getElementById("termsCheckbox");
+//   var errorMessage = document.getElementById("errorMessage");
+//   if (!checkBox.checked) {
+//     errorMessage.textContent =
+//       "You must agree to the terms and conditions before submitting the form.";
+//     return false;
+//   }
+//   errorMessage.textContent = "";
+//   return true;
+// }
+
+// const form = $("form");
+// const username = $("username");
+// const email = $("email");
+// const password = document.getElementById("password");
+// const password2 = document.getElementById("password2");
+
+// form.addEventListener("submit", (e) => {
+//   e.preventDefault();
+
+//   checkInputs();
+// });
+
+
+const button = document.querySelector('.typeface-info');
+
+  
+
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 50) {
+    if (button) button.style.display = 'block';
+  } else {
+    if (button) button.style.display = 'none';
+  
   }
-  errorMessage.textContent = "";
-  return true;
-}
-
-const form = $("form");
-const username = $("username");
-const email = $("email");
-const password = document.getElementById("password");
-const password2 = document.getElementById("password2");
-
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  checkInputs();
 });

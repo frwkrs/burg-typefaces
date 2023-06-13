@@ -1,3 +1,8 @@
+<head>
+  <link rel="shortcut icon" href="../database/favicon.png">
+
+</head>
+
 <header>
   <%- include('../common/header') %>
 </header>
@@ -19,98 +24,94 @@
   <button onclick="filterFonts('Script')">Script</button>
 </div>
 <% let i=0 %>
-  <% for (const font of fonts) { 
-    // console.log(selector)
- 
-    %>
-  
-    <% let bigfont=font.font.split('-')[0]; const regex=/([a-z])([A-Z])/g; bigfont=bigfont.replace(regex, '$1$2' ); %>
- 
+  <% for (const font of fonts) { // console.log(selector) %>
 
-       <% const thisfont=data.find(thisfont => thisfont.id === font.font); %> 
+    <% let bigfont=font.font.split('-')[0]; const regex=/([a-z])([A-Z])/g; bigfont=bigfont.replace(regex, '$1 $2' ); %>
+
+
+      <% const thisfont=data.find(thisfont=> thisfont.id === font.font); %>
         <% if (!thisfont) continue %>
-        <% let foont = thisfont.id.split('-')[0] %>
-        <!-- change to only save the array not the key -->
-       
+          <% let foont=thisfont.id.split('-')[0] %>
+            <!-- change to only save the array not the key -->
 
-  
-       
-        <div class="font-wrapper" data-category="<%= thisfont.category %>">
-          <div class="fontinfo">
-            <a href="../specimen/<%- font.font %>" class="link">
-              <span class="fontname"><span id="font"><%-bigfont %> </br>by <%= thisfont.author %></span>
-            </a>
-          </div>
 
-          <div class="bigfontlibrary"style="font-family:<%- font.font %>" id="font<%- + i %>" contenteditable="true">
-            <!-- Use this page on your laptop -->
-            <div class="bigfont"id="fontsizer"> <%- bigfont %> </div>
-            <!-- <div class="smallfont" style="display: none;"> Use a Laptop!</div> -->
-          </div>
-          <div></div>
-            <div class="fontname" id="styles" style="padding-top: 15px; width: 5vw">
-             
-      <% let familyArray = selector.filter(family => family.hasOwnProperty(foont)); 
-      console.log(familyArray)
-        let nOfStyles = 0;
-        let style = 'Styles '
-      if (familyArray[0][foont].length > 1)
-       { nOfStyles = familyArray[0][foont].length } 
-        else  {
-         nOfStyles = 1;
-        style = 'Style'
-       } %>
-              <%- nOfStyles %> <%- style %>
-     
- 
-     <select id="font-style-selector">
 
-      <% familyArray[0][foont].forEach(element => {
-         let styleName=element.split("-")[1] || "Regular" ;
-         console.log("+" +styleName) %>
-          <option value="<%= styleName %>">
-            <%= styleName %>
-          </option>
-          <% }); %>
-    </select>
+
+            <div class="font-wrapper" data-category="<%= thisfont.category %>">
+              <div class="fontinfo">
+                <a href="../specimen/<%- font.font %>" class="link">
+                  <span class="fontname"><span id="font"><%-bigfont %> </br>by <%= thisfont.author %></span>
+                </a>
               </div>
-          </div>
 
-        </div>
-        <hr>
-        <% i++ %>
-          <% } %>
+              <div class="bigfontlibrary" style="font-family:<%- font.font %>" id="font<%- + i %>"
+                contenteditable="true">
+                <div class="bigfont" id="fontsizer"> <%- bigfont %> </div>
+              </div>
+              <div></div>
+              <div class="fontname" id="styles" style="padding-top: 15px; width: 5vw">
+
+                <% let familyArray=selector.filter(family=> family.hasOwnProperty(foont));
+                  console.log(familyArray)
+                  let nOfStyles = 0;
+                  let style = 'Styles '
+                  if (familyArray[0][foont].length > 1)
+                  { nOfStyles = familyArray[0][foont].length }
+                  else {
+                  nOfStyles = 1;
+                  style = 'Style'
+                  } %>
+                  <%- nOfStyles %> <%- style %>
+
+
+                      <!-- <select id="font-style-selector">
+
+                        <% familyArray[0][foont].forEach(element=> {
+                          let styleName=element.split("-")[1] || "Regular" ;
+                          console.log("+" +styleName) %>
+                          <option value="<%= styleName %>">
+                            <%= styleName %>
+                          </option>
+                          <% }); %>
+                      </select> -->
+              </div>
             </div>
 
-            <script>
-              function filterFonts(category) {
-                var fonts = document.querySelectorAll(".font-wrapper");
-                if (category === "all") {
-                  fonts.forEach(font =>{ 
-                    font.style.display = "flex";
-                    var hr = font.nextElementSibling;
-                    hr.classList.remove("show");
+            </div>
+            <hr>
+            <% i++ %>
+              <% } %>
+                </div>
 
-                });
-                  
-                } else {
-                  fonts.forEach(font => {
-                    var categories = font.dataset.category.split(",");
-                    console.log("test"+categories);
-                    console.log(category)
-                    var hr = font.nextElementSibling;
-                    if (categories.includes(category)) {
-                      font.style.display = "flex";
-                      hr.classList.remove("show");
+                <script>
+                  function filterFonts(category) {
+                    var fonts = document.querySelectorAll(".font-wrapper");
+                    if (category === "all") {
+                      fonts.forEach(font => {
+                        font.style.display = "flex";
+                        var hr = font.nextElementSibling;
+                        hr.classList.remove("show");
+
+                      });
+
                     } else {
-                      font.style.display = "none";
-                      hr.classList.add("show");
+                      fonts.forEach(font => {
+                        var categories = font.dataset.category.split(",");
+                        console.log("test" + categories);
+                        console.log(category)
+                        var hr = font.nextElementSibling;
+                        if (categories.includes(category)) {
+                          font.style.display = "flex";
+                          hr.classList.remove("show");
+                        } else {
+                          font.style.display = "none";
+                          hr.classList.add("show");
+                        }
+                      });
                     }
-                  });
-                }
-              }
+                  }
 
-            </script>
+                </script>
 
 
-            <script src="../scripts/script2.js" type="text/javascript"></script>
+                <script src="../scripts/script2.js" type="text/javascript"></script>
