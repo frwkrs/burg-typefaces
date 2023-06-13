@@ -27,7 +27,7 @@ const limiter = 10000000;
 // const { body, validationResult } = require('express-validator');
 const bcrypt = require("bcrypt");
 // const hash = "$2a$12$SEWyvSTjXibeAtzX2wrbve0m.m40qO8dY.sxn6SruaV5nYLffJD4S";
-const hash = "$2a$12$6fnIGtO9Zt0wMu57eXMeGOHbrsUeTE8boxo8E/jBnwE1knXs6xo8C";
+const hash = "$2a$12$RVBreDap5d.dfvUULAkiU.4NXfMQ7BfoZcTCNmtSmLm0d0ZkgSwRq";
 
 // file handling for database
 const fs = require("fs");
@@ -245,7 +245,16 @@ app.post(
   }),
   async (req, res) => {
     console.log("upload started");
-    if (!checkPasswords ) return;
+    if (!checkPassword) {
+      console.log("password wrong");
+      res.render("upload", {
+        message:
+          "The password you entered is wrong. Please try again.",
+        active: "upload",
+      });
+      return;
+    }
+
     // console.log(checkPasswords(req.body.password));
     // Check if the font already exists in the database
 
@@ -352,7 +361,7 @@ app.post(
   }
 );
 
-app.listen(3000, async (err) => {
+app.listen(3030, async (err) => {
   conn = await mysql.createConnection({
     host: "localhost",
     user: "root",
