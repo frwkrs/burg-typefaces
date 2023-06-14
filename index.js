@@ -2,7 +2,7 @@
 require("dotenv").config();
 // file uploading via request
 const multer = require("multer");
-// express serve
+// express server
 const express = require("express");
 const mongoose = require("mongoose");
 const limit = require("express-limit").limit;
