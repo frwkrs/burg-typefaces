@@ -1,28 +1,32 @@
 @font-face {
-  font-family: 'AutreDisplay-Regular';
-  src: url('../fonts/AutreDisplay-Regular.woff2') format('truetype');
+  font-family: "AutreDisplay-Regular";
+  src: url("../fonts/AutreDisplay-Regular.woff2") format("truetype");
 }
 @font-face {
-  font-family: 'BurgGrotesk-Regular';
-  src: url('../fonts/BurgGrotesk-Regular.otf') format('truetype');
+  font-family: "BurgGrotesk-Regular";
+  src: url("../fonts/BurgGrotesk-Regular.otf") format("truetype");
 }
 @font-face {
-  font-family: 'Collective-Display';
-  src: url('../fonts/Collective-Display.otf') format('truetype');
+  font-family: "CoFoSans-Black-Trial";
+  src: url("../fonts/CoFoSans-Black-Trial.otf") format("truetype");
 }
 @font-face {
-  font-family: 'SaP22_23_Tessa-mix';
-  src: url('../fonts/SaP22_23_Tessa-mix.otf') format('truetype');
+  font-family: "Collective-Display";
+  src: url("../fonts/Collective-Display.otf") format("truetype");
 }
 @font-face {
-  font-family: 'VelosMono';
-  src: url('../fonts/VelosMono.woff2') format('truetype');
+  font-family: "SaP22_23_Tessa-mix";
+  src: url("../fonts/SaP22_23_Tessa-mix.otf") format("truetype");
 }
 @font-face {
-  font-family: 'Volki-Regular';
-  src: url('../fonts/Volki-Regular.otf') format('truetype');
+  font-family: "VelosMono";
+  src: url("../fonts/VelosMono.woff2") format("truetype");
 }
 @font-face {
-  font-family: 'softy-Regular';
-  src: url('../fonts/softy-Regular.otf') format('truetype');
+  font-family: "Volki-Regular";
+  src: url("../fonts/Volki-Regular.otf") format("truetype");
+}
+@font-face {
+  font-family: "softy-Regular";
+  src: url("../fonts/softy-Regular.otf") format("truetype");
 }
