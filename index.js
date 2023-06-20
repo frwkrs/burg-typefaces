@@ -8,6 +8,10 @@ const mongoose = require("mongoose");
 const limit = require("express-limit").limit;
 mongoose.set("strictQuery", false);
 
+
+const router = express.Router();
+
+
 // mongoose.connect('mongodb://font:FetterMolch3000@localhost/fontarchive', { useNewUrlParser: true});
 // const db = mongoose.connection;
 // db.once('open', () => console.log('Connected to DB'));
@@ -75,6 +79,7 @@ var upload = multer({ storage: storage });
 
 app.set("view engine", "ejs");
 app.use(express.static(__dirname));
+app.use('/typefaces', router);
 app.use(express.urlencoded({ extended: true }));
 // app.use(countFilejs);
 app.use(express.json());
@@ -82,7 +87,7 @@ app.use(express.json());
 
 //handling requests
 
-app.get(
+router.get(
   ["/", "/library"],
   limit({
     max: limiter, // 5 requests
@@ -114,7 +119,7 @@ app.get(
   }
 );
 
-app.get(
+router.get(
   "/about",
   limit({
     max: limiter, // 5 requests
@@ -125,7 +130,7 @@ app.get(
   }
 );
 
-app.get(
+router.get(
   "/success",
   limit({
     max: limiter, // 5 requests
@@ -137,7 +142,7 @@ app.get(
 );
 
 //handle specimen requests
-app.get(
+router.get(
   "/specimen/:id",
   limit({
     max: limiter, // 5 requests
@@ -207,7 +212,7 @@ app.get(
   }
 );
 
-app.get(
+router.get(
   "/upload",
   limit({
     max: limiter, // 5 requests
