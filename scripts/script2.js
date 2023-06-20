@@ -20,21 +20,15 @@ contenteditableElements.forEach((element) => {
 $("#font-style-selector").on("change", function () {
   console.log($(this).val());
   var selectedStyle = $(this).val();
-  console.log(selectedStyle);
   var fontName = selectedStyle.split("-")[0];
-  var fontUrl = "../../font_styles/" + fontName + "-Medium.otf"; // Update the font file URL
-  $(".bigfontcolumn, .charset, .size3, .size2, .size1, .small-size, .min-size").css("font-family", selectedStyle);
-
-  // Load the font file dynamically
-  var fontFace = new FontFace(fontName, 'url(' + fontUrl + ')');
-  fontFace.load().then(function (loadedFace) {
-    document.fonts.add(loadedFace);
-    $(".bigfontcolumn, .charset, .size3, .size2, .size1, .small-size, .min-size").css("font-family", fontName); // Apply the loaded font face
-  }).catch(function (error) {
-    console.log('Failed to load font: ' + fontUrl, error);
-  });
+  $(".bigfontcolumn").css("font-family", selectedStyle);
+  $(".charset").css("font-family", selectedStyle);
+  $(".size3").css("font-family", selectedStyle);
+  $(".size2").css("font-family", selectedStyle);
+  $(".size1").css("font-family", selectedStyle);
+  $(".small-size").css("font-family", selectedStyle);
+  $(".min-size").css("font-family", selectedStyle);
 });
-
 
 var filterButtons = $(".filter-container button");
 

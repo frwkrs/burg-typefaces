@@ -7,10 +7,6 @@
   src: url('../fonts/BurgGrotesk-Regular.otf') format('truetype');
 }
 @font-face {
-  font-family: 'CoFoSans-Black-Trial';
-  src: url('../fonts/CoFoSans-Black-Trial.otf') format('truetype');
-}
-@font-face {
   font-family: 'Collective-Display';
   src: url('../fonts/Collective-Display.otf') format('truetype');
 }

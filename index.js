@@ -1,6 +1,5 @@
 "use strict";
 require("dotenv").config();
-// const config = require('./config.js');
 // file uploading via request
 const multer = require("multer");
 // express server
@@ -74,13 +73,8 @@ const storage = multer.diskStorage({
 var upload = multer({ storage: storage });
 // file upload handling //
 
-const router = express.Router();
-app.use("/typefaces", router);
-
 app.set("view engine", "ejs");
-// app.use(express.static(__dirname));
-app.use(express.static(path.join(__dirname)));
-// app.use(config.baseUrl, app);
+app.use(express.static(__dirname));
 app.use(express.urlencoded({ extended: true }));
 // app.use(countFilejs);
 app.use(express.json());
@@ -88,7 +82,7 @@ app.use(express.json());
 
 //handling requests
 
-router.get(
+app.get(
   ["/", "/library"],
   limit({
     max: limiter, // 5 requests
@@ -103,13 +97,12 @@ router.get(
     let families = [];
     fonts.forEach((font) => {
       let family = font.font.split("-")[0];
-      console.log(family);
       const stylesPath = `./styles/families/${family}.css`;
-      // const stylesPath = `./styles/families/${family}.css`.replace(/"/g, ""); 
       let obj = {};
       obj[family] = getFontFamilies(stylesPath);
       families.push(obj);
     });
+
 
     const [rows] = await conn.execute("select * from typefaces");
     res.render("library", {
@@ -121,7 +114,7 @@ router.get(
   }
 );
 
-router.get(
+app.get(
   "/about",
   limit({
     max: limiter, // 5 requests
@@ -132,7 +125,7 @@ router.get(
   }
 );
 
-router.get(
+app.get(
   "/success",
   limit({
     max: limiter, // 5 requests
@@ -144,7 +137,7 @@ router.get(
 );
 
 //handle specimen requests
-router.get(
+app.get(
   "/specimen/:id",
   limit({
     max: limiter, // 5 requests
@@ -158,8 +151,8 @@ router.get(
     const [rows] = await conn.execute("SELECT * FROM typefaces WHERE id = ?", [
       req.params.id,
     ]);
-
-    // console.log(rows);
+    
+    console.log(rows);
     //  console.log(JSON.stringify(rows));
     // } catch(err) {
     //     res.render("404", {active: '', id: req.params.id});
@@ -214,7 +207,7 @@ router.get(
   }
 );
 
-router.get(
+app.get(
   "/upload",
   limit({
     max: limiter, // 5 requests
@@ -227,7 +220,7 @@ router.get(
   }
 );
 
-router.get(
+app.get(
   "*",
   limit({
     max: limiter, // 5 requests
@@ -239,7 +232,7 @@ router.get(
 );
 // upload
 
-router.post(
+app.post(
   "/upload",
   upload.fields([
     { name: "fontFile", maxCount: 1 },
@@ -255,7 +248,8 @@ router.post(
     if (!checkPasswords) {
       console.log("password wrong");
       res.render("upload", {
-        message: "The password you entered is wrong. Please try again.",
+        message:
+          "The password you entered is wrong. Please try again.",
         active: "upload",
       });
       return;
@@ -323,6 +317,9 @@ router.post(
       }
     }
 
+
+
+
     console.log("uploading");
     id = req.files["fontFile"][0].originalname.split(".")[0];
     await conn.execute(
@@ -377,7 +374,7 @@ app.listen(3030, async (err) => {
     console.log("error", err);
     return;
   } else {
-    console.log("listening on port 3030");
+    console.log("listening on port 3000");
   }
 });
 
