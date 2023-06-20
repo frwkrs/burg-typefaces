@@ -103,7 +103,9 @@ router.get(
     let families = [];
     fonts.forEach((font) => {
       let family = font.font.split("-")[0];
+      console.log(family);
       const stylesPath = `./styles/families/${family}.css`;
+      // const stylesPath = `./styles/families/${family}.css`.replace(/"/g, ""); 
       let obj = {};
       obj[family] = getFontFamilies(stylesPath);
       families.push(obj);
