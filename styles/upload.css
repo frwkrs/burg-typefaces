@@ -1,70 +1,72 @@
+.upload-form {
+  margin: auto;
+  display: flex;
+  padding: 2rem;
+  width: 50vw;
+  /* grid-template-columns: 2fr 5fr; */
+  gap: 10px 0;
+  flex-direction: column;
+  background-color: white;
+}
 
+/* body {
+    background-color: blue;
+  } */
 
+/* label {
+    background-color: blue;
+    color: white;
+  } */
+.submit-button {
+  background-color: blue;
+  color: white;
+  border: none;
+  border-radius: 0;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+label,
+input,
+option,
+select,
+textarea {
+  font-size: 1.5rem;
+  font-family: "Graebenbach-Regular";
+}
+
+input,
+select,
+textarea {
+  padding: 10px;
+}
+
+.upload-tooltips {
+  margin: 0; /* margin-left: -2rem; */
+}
+
+input[type="file" i] {
+  padding-left: 0;
+}
+
+#errorMessage {
+  color: red;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 800px) {
   .upload-form {
-    margin: auto;
-    display: flex;
-    padding: 2rem;
-    width: 50vw;
-    /* grid-template-columns: 2fr 5fr; */
-    gap: 10px 0;
-    flex-direction: column;
-    background-color: white;
+    width: 95vw;
+    padding: 2.5vw;
   }
+}
 
-  /* body {
-    background-color: blue;
-  } */
+.hr-upload {
+  height: 1px;
+  background: black;
+}
 
-
-  /* label {
-    background-color: blue;
-    color: white;
-  } */
-  .submit-button {
-    background-color: blue;
-    color: white;
-    border: none;
-    border-radius: 0;
-    padding-top: 15px;
-    padding-bottom: 15px;
-  }
-
-  label, input, option, select, textarea {
-    font-size: 1.5rem;
-    font-family: 'Graebenbach-Regular';
-  }
-
-  input, select, textarea {
-    padding: 10px;
-  }
-
-  .upload-tooltips {
-    margin: 0;  /* margin-left: -2rem; */
-  }
-
-
-  input[type="file" i] {
-    padding-left: 0;
-  }
-
-  #errorMessage {
-    color: red;
-    font-weight: bold;
- }
-
-  @media screen and (max-width: 800px) {
-    .upload-form {
-      width: 95vw;
-      padding: 2.5vw;
-    }
-  }
-
-  .hr-upload {
-    height: 1px;
-    background: black;
-  }
-
-  /* #description {
+/* #description {
     height: 30vh;
     text-align: start;
   } */

@@ -1,0 +1,14 @@
+@font-face {
+        font-family: 'CoFoSans';
+        src: url('../fonts/CoFoSans-Black-Trial.otf');
+    }
+@font-face {
+            font-family: 'CoFoSans-BlackItalic-Trial';
+            src: url('../font_styles/CoFoSans-BlackItalic-Trial.otf');
+            font-weight: CoFoSans-BlackItalic-Trial;
+        }
+@font-face {
+            font-family: 'CoFoSans-Bold-Trial';
+            src: url('../font_styles/CoFoSans-Bold-Trial.otf');
+            font-weight: CoFoSans-Bold-Trial;
+        }
