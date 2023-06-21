@@ -8,22 +8,12 @@ const mongoose = require("mongoose");
 const limit = require("express-limit").limit;
 mongoose.set("strictQuery", false);
 
-
 const router = express.Router();
 
-
-// mongoose.connect('mongodb://font:FetterMolch3000@localhost/fontarchive', { useNewUrlParser: true});
-// const db = mongoose.connection;
-// db.once('open', () => console.log('Connected to DB'));
 // mysql
 const mysql = require("mysql2/promise");
 
 var conn = 0;
-// const conn = mysql.createConnection({
-//    host: 'localhost',
-//   user: 'root',
-//   password: 'FetterMolch3000',
-//   database: 'fontarchive' });
 
 //mysql
 
