@@ -27,7 +27,7 @@
         <p class="upload-tooltips">
           * means that a field is mandatory.
         </p>
-        <label for="file">Add your main font file:*</label>
+        <label for="fontFile">Add your main font file:*</label>
         <p class="upload-tooltips">
           If you have your font in the woff or woff2 format: Perfect! If you
           only have it as .otf or .ttf consider just uploading a trial-font with
@@ -37,12 +37,13 @@
         <input
           type="file"
           name="fontFile"
+          id="fontFile"
           single
           accept=".ttf, .otf, .woff, .woff2"
           required
         />
         <div class="hr-upload"></div>
-        <label for="file">Add additional styles:*</label>
+        <label for="styleFiles">Add additional styles:*</label>
         <p class="upload-tooltips">
           If your font has more than one style you can add them here
         </p>
@@ -50,6 +51,7 @@
           type="file"
           name="styleFiles"
           multiple
+          id="styleFiles
           accept=".ttf, .otf, .woff, .woff2"
         />
         <div class="hr-upload"></div>
@@ -65,7 +67,7 @@
           <option value="Display">Sketch</option>
           <option value="Experimental">Sketch</option>
         </select> -->
-        <span class="categories">
+        <span class="categories" id="filter">
             <input type="checkbox" id="categorie1" name="categorie1" value="Serif" />
             <label for="categorie1">Serif</label>
         <!-- </span>

@@ -70,7 +70,7 @@ var upload = multer({ storage: storage });
 app.set("view engine", "ejs");
 app.use(express.static(__dirname));
 
-app.use('/typefaces', router);
+// app.use('/typefaces', router);
 app.use(express.urlencoded({ extended: true }));
 // app.use(countFilejs);
 app.use(express.json());
@@ -78,7 +78,7 @@ app.use(express.json());
 
 //handling requests
 
-router.get(
+app.get(
   ["/", "/library"],
   limit({
     max: limiter, // 5 requests
@@ -110,7 +110,7 @@ router.get(
   }
 );
 
-router.get(
+app.get(
   "/about",
   limit({
     max: limiter, // 5 requests
@@ -121,7 +121,7 @@ router.get(
   }
 );
 
-router.get(
+app.get(
   "/success",
   limit({
     max: limiter, // 5 requests
@@ -133,7 +133,7 @@ router.get(
 );
 
 //handle specimen requests
-router.get(
+app.get(
   "/specimen/:id",
   limit({
     max: limiter, // 5 requests
@@ -203,7 +203,7 @@ router.get(
   }
 );
 
-router.get(
+app.get(
   "/upload",
   limit({
     max: limiter, // 5 requests
